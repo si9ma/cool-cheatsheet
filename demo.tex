@@ -1,0 +1,155 @@
+% Created At Sat Mar 09 2019 1:21:32 AM 
+% cheat sheet demo
+% 
+% Copyright 2019 si9ma <hellob374@gmail.com>
+
+\documentclass[a4paper,17pt]{article}
+\input{common} % import common settings, you can overwrite here
+\input{color} % import pre-define color
+
+% let's go
+\begin{document}
+
+% redefine color
+% eg:
+% 	\definecolor{TableHeadColor}{rgb}{0, 0, 0}
+%	\definecolor{TableRowColor}{rgb}{0.888, 0.888, 0.888}
+% or:
+% 	\colorlet{TableHeadColor}{alizarin}
+%	\colorlet{TableRowColor}{x11gray}
+% 	refer:http://latexcolor.com/
+\colorlet{TableHeadColor}{alizarin}
+\colorlet{TableRowColor}{lightgray}
+\StoreColor % store color to tmp var
+
+\header{GIT} % header
+\raggedright\
+
+\footnotesize
+\begin{multicols}{3} % 3 colnumn
+
+  \centering\section{Basic}
+
+  \begin{card2}{Shell}
+    Alt (Meta) key      & \texttt{M} \\
+    Shift key           & \texttt{S} \\
+    Command (Super) key & \texttt{CMD} \\
+    Function (Fn) key   & \texttt{fn} \\
+    Home/end            & \texttt{fn-left / fn-right} \\
+  \end{card2}
+
+  \begin{card2}{Basic}
+    Execute command by name          & \texttt{M-x} \\
+    Cancel command                   & \texttt{C-g} \\
+    Exit Emacs                       & \texttt{C-x C-c} \\
+    Help: describe a key combination & \texttt{C-h k} \\
+    Help: describe a function        & \texttt{C-h f} \\
+  \end{card2}
+
+  \begin{card2}{Navigation}
+    Previous/next character      & \texttt{C-b / C-f} \\
+    Previous/next line           & \texttt{C-p / C-n} \\
+    Previous/next word           & \texttt{M-left / M-right} \\
+    Previous/next current symbol & \texttt{M-a / M-e} \\
+    Previous/next s-expression   & \texttt{C-M-b / C-M-f} \\
+    Previous/next defun          & \texttt{C-M-a / C-M-e} \\
+    Previous/next page           & \texttt{C-v / M-v} \\
+    Beginning/end of line        & \texttt{C-a / C-e} \\
+    Beginning/end of file        & \texttt{M-S-, / M-S-.} \\
+  \end{card2}
+
+  \begin{card2}{Mark}
+    Select region while navigating & Hold Shift \\
+    Select next s-expression       & \texttt{M-S-Space} \\
+  \end{card2}
+
+  \colorlet{TableHeadColor}{indigo(web)}
+  \begin{card2}{Files}
+    Find (open) file                  & \texttt{C-x C-f} \\
+    Save file                         & \texttt{C-x C-s} \\
+    Don't suggest names in minibuffer & \texttt{C-f} \\
+    Find recent file                  & \texttt{M-m} \\
+    Find file in project              & \texttt{M-i} \\
+  \end{card2}
+  
+
+  \begin{card2}{Search}
+    Search forward, next match         & \texttt{C-s} \\
+    Search backward, prev match        & \texttt{C-r} \\
+    Occur (show all matches)           & \texttt{M-o} \\
+    Grep                               & \texttt{M-x rgrep} \\
+    Interactive grep in project (Helm) & \texttt{M-h} \\
+    Helm-grep: preview match at point  & \texttt{C-z} \\
+  \end{card2}
+
+  \begin{card2}{Replace}
+    Interactive replace        & \texttt{M-\%} \\
+    Replace current occurrence & \texttt{y} \\
+    Skip current occurrence    & \texttt{n} \\
+    Replace all occurrences    & \texttt{!} \\
+  \end{card2}
+
+  \begin{card2}{Buffers}
+    Previous/next buffer & \texttt{C-, / C-.} \\
+    Jump to buffer       & \texttt{C-x b / M-m} \\
+    List buffers         & \texttt{C-x C-l} \\
+    Kill buffer          & \texttt{C-x k} \\
+  \end{card2}
+
+  \begin{card2}{Editing}
+    Kill current symbol         & \texttt{C-d} \\
+    Kill line                   & \texttt{C-k} \\
+    Cut to clipboard            & \texttt{C-w / CMD-x} \\
+    Copy to clipboard           & \texttt{M-w / CMD-c} \\
+    Paste from clipboard        & \texttt{C-y / CMD-v} \\
+    Cycle through clipboard     & \texttt{M-y} \\
+    Undo                        & \texttt{C-z / CMD-z} \\
+    Redo                        & \texttt{M-z / CMD-y} \\
+    Indent line                 & \texttt{TAB} \\
+    Complete filename in buffer & \texttt{M-/} \\
+    Comment or uncomment region & \texttt{M-;} \\
+  \end{card2}
+
+  \begin{card2}{Windows}
+    Leave one window            & \texttt{C-x 1} \\
+    Split window horizontally   & \texttt{C-x 2} \\
+    Split window vertically     & \texttt{C-x 3} \\
+    Jump cursor to other window & \texttt{C-x o} \\
+  \end{card2}
+
+  \begin{card2}{Miscellaneous}
+    Ediff                                & \texttt{M-x ediff} \\
+    Ediff two opened buffers             & \texttt{C-c d} \\
+    Multiple cursors: mark all like this & \texttt{C-x m} \\
+  \end{card2}
+  \ReStoreColor % restore color from tmp var
+
+  \centering\section{Lisp}
+
+  \begin{card2}{SLIME}
+    Connect                           & \texttt{M-x slime-connect} \\
+    Switch to next connection         & \texttt{M-x slime-selector n} \\
+    Jump to REPL buffer               & \texttt{C-c C-z} \\
+    Jump to function definition       & \texttt{M-.} \\
+    Jump back from definition         & \texttt{M-,} \\
+    Evaluate last s-expression        & \texttt{C-x C-e} \\
+    Compile current defun             & \texttt{C-c C-c} \\
+    Compile current pattern           & \texttt{C-c C-k} \\
+    REPL:\ previous/next history item & \texttt{M-p / M-n} \\
+  \end{card2}
+
+  \begin{card2}{Paredit}
+    Wrap s-expression                    & \texttt{M-(} \\
+    Splice s-expression                  & \texttt{M-s} \\
+    Splice s-expression killing backward & \texttt{M-up} \\
+    Raise s-expression                   & \texttt{M-r} \\
+    Kill s-expression                    & \texttt{C-M-k} \\
+    Kill balanced to the end of line     & \texttt{C-k} \\
+    Split s-expression                   & \texttt{M-S-s} \\
+    Barf/slurp forward                   & \texttt{C-left / C-right} \\
+  \end{card2}
+
+
+\end{multicols}
+
+\end{document}

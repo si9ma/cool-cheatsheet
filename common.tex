@@ -1,0 +1,134 @@
+% Created At Fri Mar 08 2019 6:19:48 PM 
+% Common tex
+% 
+% Copy from https://gist.github.com/alexander-yakushev/c773543bf9a957749f79
+% Modified by si9ma <hellob374@gmail.com>
+
+% import package
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage[landscape]{geometry}
+\usepackage{color,graphicx,overpic}
+\usepackage[T1]{fontenc}
+\usepackage[bitstream-charter]{mathdesign}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{amsfonts}
+\usepackage{array,booktabs}
+\usepackage{textcomp}
+\usepackage[usenames,dvipsnames,table]{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{tikz}
+\usepackage{environ}
+\usepackage{fancyhdr}
+\usepackage{fontawesome}
+\usepackage[hidelinks]{hyperref}
+
+% pgf layer
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\geometry{top=0.5cm,left=1cm,right=1cm,bottom=1cm}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}
+  {-1ex plus -.5ex minus -.2ex}
+  {0.5ex plus .2ex}
+  {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}
+  {-1explus -.5ex minus -.2ex}
+  {0.5ex plus .2ex}
+  {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}
+  {-1ex plus -.5ex minus -.2ex}
+  {1ex plus .2ex}
+  {\normalfont\small\bfseries}}
+\makeatother
+
+% default color
+\definecolor{TableHeadColor}{rgb}{0, 0, 0}
+\definecolor{TableRowColor}{rgb}{0.9, 0.9, 0.9}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+% The paragraph setting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% card2 - 2 column 
+\NewEnviron{card2}[1]{
+  \smallskip
+  \normalsize
+  \begin{tikzpicture}
+      \rowcolors{1}{}{TableRowColor}
+      \centering
+      \node (tbl) [inner sep=0pt] {
+        \begin{tabular}{p{4.2cm}p{3.25cm}}
+          \rowcolor{TableHeadColor}
+          \multicolumn{2}{l}{\large\textbf{\color{white}{#1}}}\parbox{0pt}{\rule{0pt}{0.5ex+\baselineskip}}\\
+          \BODY
+          \arrayrulecolor{TableHeadColor}\specialrule{.17em}{0em}{.2em}
+        \end{tabular}};
+      \begin{pgfonlayer}{background}
+        \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
+        ($(tbl.north west)-(0,-0.05)$) rectangle ($(tbl.north east)-(0.0,0.15)$);
+        \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
+        ($(tbl.south west)-(0.0,-0.11)$) rectangle ($(tbl.south east)-(-0.0,-0.02)$);
+      \end{pgfonlayer}
+    \end{tikzpicture}
+}
+
+% card3 - 3 column
+\NewEnviron{card3}[1]{
+  \smallskip
+  \normalsize
+  \begin{tikzpicture}
+      \rowcolors{1}{}{TableRowColor}
+      \centering
+      \node (tbl) [inner sep=0pt] {
+        \begin{tabular}{p{4.2cm}p{3.25cm}p{3.25cm}}
+          \rowcolor{TableHeadColor}
+          \multicolumn{3}{l}{\large\textbf{\color{white}{#1}}}\parbox{0pt}{\rule{0pt}{0.5ex+\baselineskip}}\parbox{0pt}{\rule{0pt}{0.5ex+\baselineskip}}\\
+          \BODY
+          \arrayrulecolor{TableHeadColor}\specialrule{.17em}{0em}{.2em}
+        \end{tabular}};
+      \begin{pgfonlayer}{background}
+        \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
+        ($(tbl.north west)-(0,-0.05)$) rectangle ($(tbl.north east)-(0.0,0.15)$);
+        \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
+        ($(tbl.south west)-(0.0,-0.11)$) rectangle ($(tbl.south east)-(-0.0,-0.02)$);
+      \end{pgfonlayer}
+    \end{tikzpicture}
+}
+
+% header
+\newcommand{\header}[1]{
+	\href{https://github.com/si9ma/cool-cheatsheet}{\Huge\textbf{\faGithub}}
+	\hspace{.3cm}
+	\Huge{\textbf{#1 CHEAT SHEET}}
+	\hspace{.2cm}
+	\small{created by \textcolor{blue}{\href{https://github.com/si9ma}{si9ma}}}
+	\vspace*{20px}
+}
+
+% store color
+\newcommand{\StoreColor}[0]{
+	\colorlet{TableHeadColorTmp}{TableHeadColor}
+	\colorlet{TableRowColorTmp}{TableRowColor}
+}
+
+% restore color
+\newcommand{\ReStoreColor}[0]{
+	\colorlet{TableHeadColor}{TableHeadColorTmp}
+	\colorlet{TableRowColor}{TableRowColorTmp}
+}
