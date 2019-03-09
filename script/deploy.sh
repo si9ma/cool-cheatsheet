@@ -20,7 +20,8 @@ common_or_color_changed=`echo "$added_or_changed_tex" | grep -P "(commont.tex|co
 for tex in $build_list
 do
     tectonic $tex --print -o pdf # output to pdf directory
-    convert -verbose -density 300 pdf/${tex%.tex}.pdf -quality 100 img/${tex%.tex}.png # convert to image
+    file ./pdf/${tex%.tex}.pdf
+    convert -verbose -density 300 "./pdf/${tex%.tex}.pdf[0]" -quality 100 "./img/${tex%.tex}.png" # convert to image
 done
 
 # remove
@@ -38,7 +39,6 @@ cp -r img *.yml README.md gh-pages
 
 # push to github
 cd gh-pages
-touch .nojekyll
 git init
 git add -A
 git commit -m 'deploy'
