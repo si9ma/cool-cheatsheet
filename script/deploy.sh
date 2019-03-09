@@ -4,12 +4,40 @@
 # 
 # Copyright 2019 si9ma <hellob374@gmail.com>
 
-set -e # show error
+set -xv # show error
 
-rm build -rf && mkdir build && find . -name "*.tex" -exec cp {} build \; # move all tex file to build dir
-cd build && mkdir -p pdf img # create pdf and img directory
+rm build -rf && git clone --depth=50 --branch=gh-pages https://github.com/si9ma/cool-cheatsheet.git build # clone gh-pages to build
+find . -name "*.tex" -exec cp {} build \; # move all tex file to build dir
+cd build && mkdir -p pdf img # create pdf and img directory if not exist
 
-for tex in `git diff-tree --no-commit-id --name-only -r HEAD` # ignore common.tex and color.tex
+added_or_changed_tex=`git diff-tree --no-commit-id --name-status -r HEAD | grep -P "^(A|M)" | grep -o -P "(?<=src/).*tex"`
+deleted_tex=`git diff-tree --no-commit-id --name-status -r HEAD | grep -P "^(D)" | grep -o -P "(?<=src/).*tex"`
+common_or_color_changed=`echo "$added_or_changed_tex" | grep -P "(commont.tex|color.tex)"`
+[ "$common_or_color_changed" != "" ] && build_list=`ls -p | grep -v / | grep -P -v "(common.tex|color.tex)"` # if common.tex or color.tex changed , rebuild all tex
+[ "$common_or_color_changed" = "" ] && build_list=$added_or_changed_tex
+
+# build 
+for tex in $build_list
 do
     tectonic $tex --print -o pdf # output to pdf directory
 done
+
+# remove
+for tex in $deleted_tex
+do
+    rm -rf pdf/${tex%.tex}.pdf # remove deleted file
+done
+
+cd .. # back
+rm -rf gh-pages && mkdir -p gh-pages && cp build/pdf build/img gh-pages # cp build resule to gh-pages
+
+
+# push to github
+cd gh-pages
+touch .nojekyll
+git init
+git add -A
+git commit -m 'deploy'
+git push -f "https://${GH_TOKEN}@github.com/si9ma/cool-cheatsheet.git" master:gh-pages
+
+cd -
