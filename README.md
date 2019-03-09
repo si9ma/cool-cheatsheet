@@ -4,17 +4,15 @@
   <br>
 </h2>
 
+<h4 align="center">
+A cool cheatsheet list base on Tex, with a better reading experience.
+</h4>
+
 <p align="center">
     <a href="https://travis-ci.com/si9ma/cool-cheatsheet" style="text-decoration:none">
         <img src="https://travis-ci.com/si9ma/cool-cheatsheet.svg?branch=master" alt="build status"/>
     </a>
 </p>
-
-<h4 align="center">
-A cool cheatsheet list base on Tex, with a better reading experience.
-
-Created at 2019-02-04 13:16:57, happy new year! :tada:
-</>
 
 ## Errors and bugs
 
