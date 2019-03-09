@@ -33,6 +33,7 @@ rm -rf gh-pages && mkdir -p gh-pages && cp -r build/pdf build/img gh-pages # cp 
 
 
 # push to github
+cp README.md gh-pages
 cd gh-pages
 touch .nojekyll
 git init
