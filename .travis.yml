@@ -38,4 +38,4 @@ branches:
 notifications:
   email: true
 script:
- - bash ./
+ - bash ./script/deploy.sh
