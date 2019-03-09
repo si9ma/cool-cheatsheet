@@ -20,20 +20,23 @@ common_or_color_changed=`echo "$added_or_changed_tex" | grep -P "(commont.tex|co
 for tex in $build_list
 do
     tectonic $tex --print -o pdf # output to pdf directory
+    convert -verbose -density 300 pdf/${tex%.tex}.pdf -quality 100 img/${tex%.tex}.png # convert to image
 done
 
 # remove
 for tex in $deleted_tex
 do
     rm -rf pdf/${tex%.tex}.pdf # remove deleted file
+    rm -rf img/${tex%.tex}.png # remove deleted file
 done
 
 cd .. # back
 rm -rf gh-pages && mkdir -p gh-pages && cp -r build/pdf build/img gh-pages # cp build resule to gh-pages
 
+# copy content to gh-pages
+cp -r img *.yml README.md gh-pages
 
 # push to github
-cp README.md gh-pages
 cd gh-pages
 touch .nojekyll
 git init
