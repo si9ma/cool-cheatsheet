@@ -6,10 +6,9 @@
 
 set -xv # show error
 
-rm build -rf && git clone --depth=50 --branch=gh-pages https://github.com/si9ma/cool-cheatsheet.git build # clone gh-pages to build
+rm -rf build && git clone --depth=50 --branch=gh-pages https://github.com/si9ma/cool-cheatsheet.git build # clone gh-pages to build
 find . -name "*.tex" -exec cp {} build \; # move all tex file to build dir
-cd build && mkdir -p pdf img # create pdf and img directory if not exist
-rm -rf .git # remove .git in gh-pages
+cd build && mkdir -p pdf img && rm -rf .git # create pdf and img directory if not exist
 
 added_or_changed_tex=`git diff-tree --no-commit-id --name-status -r HEAD | grep -P "^(A|M)" | grep -o -P "(?<=src/).*tex"`
 deleted_tex=`git diff-tree --no-commit-id --name-status -r HEAD | grep -P "^(D)" | grep -o -P "(?<=src/).*tex"`
