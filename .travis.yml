@@ -22,7 +22,7 @@ install:
     fi
   # Install biber if required for compiling the references.
   # Biber 2.5 is required for tectonic 0.1.8
-  - conda install -c malramsay --yes
+  # - conda install -c malramsay --yes
   - conda info -a
   # Workaround until tectonic 0.1.11 is available
   - sudo mkdir -p ~/.config/Tectonic/
