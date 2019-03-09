@@ -14,6 +14,13 @@ A cool cheatsheet list base on Tex, with a better reading experience.
     </a>
 </p>
 
+## CHEAT SHEET
+
+### Demo
+simple demo
+
+[![building...](https://si9ma.github.io/cool-cheatsheet/img/demo.png)](https://si9ma.github.io/cool-cheatsheet/pdf/demo.pdf)
+
 ## Errors and bugs
 
 If something is not behaving intuitively, it is a bug and should be reported.
