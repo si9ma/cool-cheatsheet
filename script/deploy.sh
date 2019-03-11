@@ -34,7 +34,7 @@ done
 cd .. # back
 git rev-parse HEAD > .last_build # save newest successful build commit id
 git add .last_build && git commit -m "update .last_build"
-git push -f "https://${GITHUB_TOKEN}@github.com/si9ma/cool-cheatsheet.git" master:master # push .last_build info
+git push "https://${GITHUB_TOKEN}@github.com/si9ma/cool-cheatsheet.git" master:master # push .last_build info
 
 # gh-pages
 rm -rf gh-pages && mkdir -p gh-pages && cp -r build/pdf build/img gh-pages # cp build resule to gh-pages
