@@ -12,7 +12,7 @@ cd build && mkdir -p pdf img && rm -rf .git # create pdf and img directory if no
 
 added_or_changed_tex=`git diff-tree --no-commit-id --name-status -r HEAD | grep -P "^(A|M)" | grep -o -P "(?<=src/).*tex"`
 deleted_tex=`git diff-tree --no-commit-id --name-status -r HEAD | grep -P "^(D)" | grep -o -P "(?<=src/).*tex"`
-common_or_color_changed=`echo "$added_or_changed_tex" | grep -P "(commont.tex|color.tex|logo.tex)"`
+common_or_color_changed=`echo "$added_or_changed_tex" | grep -P "(common.tex|color.tex|logo.tex)"`
 [ "$common_or_color_changed" != "" ] && build_list=`ls -p | grep -v / | grep -P -v "(common.tex|color.tex|logo.tex)"` # if common.tex or color.tex changed , rebuild all tex
 [ "$common_or_color_changed" = "" ] && build_list=$added_or_changed_tex
 
