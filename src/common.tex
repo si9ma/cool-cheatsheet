@@ -25,7 +25,6 @@
 \usepackage{fancyhdr}
 \usepackage{fontawesome}
 \usepackage[hidelinks]{hyperref}
-\usepackage{ctex}
 
 % pgf layer
 \usetikzlibrary{calc}
@@ -54,9 +53,17 @@
   {\normalfont\small\bfseries}}
 \makeatother
 
-% default color
+% define color
 \definecolor{TableHeadColor}{rgb}{0, 0, 0}
 \definecolor{TableRowColor}{rgb}{0.9, 0.9, 0.9}
+
+% define column width variable
+\newcounter{Col1Width}
+\setcounter{Col1Width}{6}
+\newcounter{Col2Width}
+\setcounter{Col2Width}{2}
+\newcounter{Col3Width}
+\setcounter{Col3Width}{2}
 
 % Don't print section numbers
 \setcounter{secnumdepth}{0}
@@ -65,6 +72,35 @@
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt plus 0.5ex}
 
+% card - 1 column 
+\NewEnviron{card}[1]{
+  \smallskip
+  \normalsize
+  \begin{tikzpicture}
+      \rowcolors{1}{}{TableRowColor}
+      \centering
+      
+      % column
+      \node (tbl) [inner sep=0pt] {
+        \begin{tabular}{p{\arabic{Col1Width}cm}}
+          \rowcolor{TableHeadColor}
+          \multicolumn{1}{l}{\large\textbf{\color{white}{#1}}}\\
+          \BODY
+          \arrayrulecolor{TableHeadColor}\specialrule{.17em}{0em}{.2em}
+        \end{tabular}
+       	};
+      
+      % Rounded corners
+      \begin{pgfonlayer}{background}
+        \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
+        ($(tbl.north west)-(0,-0.05)$) rectangle ($(tbl.north east)-(0.0,0.15)$);
+        \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
+        ($(tbl.south west)-(0.0,-0.11)$) rectangle ($(tbl.south east)-(-0.0,-0.02)$);
+      \end{pgfonlayer}
+      
+    \end{tikzpicture}
+}
+
 % card2 - 2 column 
 \NewEnviron{card2}[1]{
   \smallskip
@@ -72,19 +108,25 @@
   \begin{tikzpicture}
       \rowcolors{1}{}{TableRowColor}
       \centering
+      
+      % column
       \node (tbl) [inner sep=0pt] {
-        \begin{tabular}{p{4.2cm}p{3.25cm}}
+        \begin{tabular}{p{\arabic{Col1Width}cm}p{\arabic{Col2Width}cm}}
           \rowcolor{TableHeadColor}
           \multicolumn{2}{l}{\large\textbf{\color{white}{#1}}}\parbox{0pt}{\rule{0pt}{0.5ex+\baselineskip}}\\
           \BODY
           \arrayrulecolor{TableHeadColor}\specialrule{.17em}{0em}{.2em}
-        \end{tabular}};
+        \end{tabular}
+       	};
+      
+      % Rounded corners
       \begin{pgfonlayer}{background}
         \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
         ($(tbl.north west)-(0,-0.05)$) rectangle ($(tbl.north east)-(0.0,0.15)$);
         \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
         ($(tbl.south west)-(0.0,-0.11)$) rectangle ($(tbl.south east)-(-0.0,-0.02)$);
       \end{pgfonlayer}
+      
     \end{tikzpicture}
 }
 
@@ -95,19 +137,24 @@
   \begin{tikzpicture}
       \rowcolors{1}{}{TableRowColor}
       \centering
+      
+      % column
       \node (tbl) [inner sep=0pt] {
-        \begin{tabular}{p{4.2cm}p{3.25cm}p{3.25cm}}
+        \begin{tabular}{p{\arabic{Col1Width}cm}p{\arabic{Col2Width}cm}p{\arabic{Col3Width}cm}}
           \rowcolor{TableHeadColor}
           \multicolumn{3}{l}{\large\textbf{\color{white}{#1}}}\parbox{0pt}{\rule{0pt}{0.5ex+\baselineskip}}\parbox{0pt}{\rule{0pt}{0.5ex+\baselineskip}}\\
           \BODY
           \arrayrulecolor{TableHeadColor}\specialrule{.17em}{0em}{.2em}
         \end{tabular}};
+        
+      % Rounded corners
       \begin{pgfonlayer}{background}
         \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
         ($(tbl.north west)-(0,-0.05)$) rectangle ($(tbl.north east)-(0.0,0.15)$);
         \draw[rounded corners=2pt,top color=TableHeadColor,bottom color=TableHeadColor, draw=white]
         ($(tbl.south west)-(0.0,-0.11)$) rectangle ($(tbl.south east)-(-0.0,-0.02)$);
       \end{pgfonlayer}
+      
     \end{tikzpicture}
 }
 
@@ -131,4 +178,14 @@
 \newcommand{\ReStoreColor}[0]{
 	\colorlet{TableHeadColor}{TableHeadColorTmp}
 	\colorlet{TableRowColor}{TableRowColorTmp}
+}
+
+% alias \textbackslash(\)
+\newcommand{\bl}[1]{
+	\textbackslash{#1}
+}
+
+% alias \textasciicircum(^)
+\newcommand{\ac}[1]{
+	\textasciicircum{#1}
 }
