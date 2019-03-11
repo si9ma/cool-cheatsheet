@@ -1,0 +1,105 @@
+% Created At Mon Mar 11 2019 8:23:12 PM 
+% Regular expression cheat sheet
+% 
+% Copyright 2019 si9ma <hellob374@gmail.com>
+
+\documentclass[b5paper,10pt]{article}
+\input{common} % import common settings, you can overwrite here
+\input{color} % import pre-define color
+\usepackage{amsmath}
+%\usepackage{ctex} % import ctex when you need chinese character
+
+% let's go
+\begin{document}
+
+% redefine color
+% eg:
+% 	\definecolor{TableHeadColor}{rgb}{0, 0, 0}
+%	\definecolor{TableRowColor}{rgb}{0.888, 0.888, 0.888}
+% or:
+% 	\colorlet{TableHeadColor}{alizarin}
+%	  \colorlet{TableRowColor}{x11gray}
+% 	refer:http://latexcolor.com/
+\colorlet{TableHeadColor}{alizarin}
+\colorlet{TableRowColor}{lightgray}
+\StoreColor % store color to tmp var
+
+% redefine column width, must be integer
+\setcounter{Col1Width}{6}
+\setcounter{Col2Width}{3}
+\setcounter{Col3Width}{2}
+
+\header{REGULAR EXPRESSION} % header
+\raggedright\
+
+\footnotesize
+\begin{multicols}{2} % 2 colnumn
+
+  \centering\section{Basic}
+
+  \begin{card2}{Character classes}
+  	any character except newline  						& . \\
+  	word $\Longleftrightarrow$ not word 					& \bl{w} $\Longleftrightarrow$ \bl{W} \\
+  	digit $\Longleftrightarrow$ not digit 				& \bl{d} $\Longleftrightarrow$ \bl{D} \\
+  	whitespace $\Longleftrightarrow$ not whitespace  	& \bl{s} $\Longleftrightarrow$ \bl{S} \\
+    word boundary $\Longleftrightarrow$ not-word boundary  & \bl{b} $\Longleftrightarrow$ \bl{B} \\
+	any of a, b, or c 									& [abc] \\
+	not a, b, or c 										& [\ac{abc}] \\
+	character between a \& g 							& [a-g] \\
+	number between 0 \& 9 							& [0-9] \\
+  \end{card2}
+
+  \begin{card2}{Anchors}
+    start of line         			& \ac{} $\Longrightarrow$ \ac{abc} \\
+    end of line 					& \$ $\Longrightarrow$ abc\$ 	\\
+  \end{card2}
+
+  \begin{card2}{Escaped characters}
+    escaped special characters      & \bl{.} \bl{*} \bl{\bl{}} \\
+    tab								& \bl{t}  \\
+    linefeed						& \bl{n}  \\
+    carriage return  				& \bl{r}  \\
+  \end{card2}
+  
+  \colorlet{TableHeadColor}{indigo(web)}
+  \begin{card2}{Groups}
+    capture group					& ( ) $\Longrightarrow$ (abc) \\
+    backreference to group \#1	 	& \bl{1} \\
+    non-capturing group				& (?:) $\Longrightarrow$ (?:abc) \\
+  \end{card2}
+
+  \setcounter{Col1Width}{6}
+  \setcounter{Col2Width}{2}
+  \begin{card2}{Quantifiers \& Alternation}
+    0 or more   					& a* $\rightleftharpoons$ a\{,\} \\
+    1 or more   					& a+ $\rightleftharpoons$ a\{1,\} \\
+    0 or 1   						& a? $\rightleftharpoons$ a\{,1\} \\
+    exactly five 					& a\{5\} \\
+    two or more 					& a\{2,\} \\
+    between one \& three				& a\{1,3\} \\
+    match as few as possible	(lazy match)		& a+? a\{2,\}? \\
+    match ab or cd					& | $\Longrightarrow$ ab|cd \\
+  \end{card2}
+  
+  \ReStoreColor
+  \centering\section{Advanced}
+  \begin{card2}{Lookaround}
+    positive lookahead				& (?=abc) \\
+    negative lookahead				& (?!abc) \\
+    positive lookbehind				& (?<=abc) \\
+    negative lookbehind				& (?<!abc) 	\\
+  \end{card2}
+  
+  \centering\section{Example}
+  
+  \setcounter{Col1Width}{8}
+  \begin{card}{example}
+    match phone number of china 			\\
+    \bl{b}\bl{d}\{11\}\bl{b}  $\hookleftarrow$ \\
+    match ip							\\
+    \bl{b}(?:\bl{d}\{1,3\}\bl{.})\{3\}\bl{d}\{1,3\}\bl{b} $\hookleftarrow$ \\
+  \end{card}
+  
+\end{multicols}
+
+\end{document}
