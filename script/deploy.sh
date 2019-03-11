@@ -8,9 +8,9 @@ set -xv # show error
 
 rm -rf build && git clone --depth=50 --branch=gh-pages https://github.com/si9ma/cool-cheatsheet.git build # clone gh-pages to build
 find . -name "*.tex" -exec cp {} build \; # move all tex file to build dir
-last_build=`cat .last_build` # last successful build commit id
 cd build && mkdir -p pdf img && rm -rf .git # create pdf and img directory if not exist
 
+last_build=`cat .last_build` # last successful build commit id
 added_or_changed_tex=`git diff --name-status $last_build HEAD | grep -P "^(A|M)" | grep -o -P "(?<=src/).*tex"`
 deleted_tex=`git diff --name-status $last_build HEAD | grep -P "^(D)" | grep -o -P "(?<=src/).*tex"`
 common_or_color_changed=`echo "$added_or_changed_tex" | grep -P "(common.tex|color.tex|logo.tex)"`
@@ -32,13 +32,6 @@ do
 done
 
 cd .. # back
-git rev-parse HEAD > .last_build # save newest successful build commit id
-git add .last_build && git commit -m "update .last_build"
-git status
-git diff HEAD^ HEAD
-pwd
-git branch 
-git push "https://${GITHUB_TOKEN}@github.com/si9ma/cool-cheatsheet.git" master:master # push .last_build info
 
 # gh-pages
 rm -rf gh-pages && mkdir -p gh-pages && cp -r build/pdf build/img gh-pages # cp build resule to gh-pages
@@ -48,6 +41,8 @@ cp -r img *.yml README.md gh-pages
 
 # push to github
 cd gh-pages
+git rev-parse HEAD > .last_build # save newest successful build commit id
+cat .last_build
 git init
 git add -A
 git commit -m 'deploy'
